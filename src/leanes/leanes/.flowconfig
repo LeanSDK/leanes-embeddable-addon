@@ -1,9 +1,0 @@
-[include]
-../patternes/**/*
-../pipes/**/*
-
-[libs]
-./declares
-
-[options]
-all=true
