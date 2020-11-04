@@ -124,7 +124,7 @@ export default function relatedEmbeds(opts: EmbedOptionsT) {
           })).toArray();
         }
       })();
-      this.collection.sendNotification(
+      this.collection.send(
         SEND_TO_LOG, `relatedEmbeds.load ${key} result ${JSON.stringify(res)}`, LEVELS[DEBUG]
       );
       return res;
@@ -137,7 +137,7 @@ export default function relatedEmbeds(opts: EmbedOptionsT) {
       let EmbedsCollection = null;
       let EmbedRecord = null;
       let alRecords = this[key];
-      this.collection.sendNotification(
+      this.collection.send(
         SEND_TO_LOG, `relatedEmbeds.put ${key} embeds ${JSON.stringify(alRecords)}`, LEVELS[DEBUG]
       );
       if (alRecords.length > 0) {
@@ -265,7 +265,7 @@ export default function relatedEmbeds(opts: EmbedOptionsT) {
     opts.restore = async function(replica: ?object): Promise<?RecordInterface> {
       let EmbedsCollection = null;
       let EmbedRecord = null;
-      this.collection.sendNotification(
+      this.collection.send(
         SEND_TO_LOG, `relatedEmbeds.restore ${key} replica ${JSON.stringify(replica)}`, LEVELS[DEBUG]
       );
       const res = await (async () => {
@@ -292,7 +292,7 @@ export default function relatedEmbeds(opts: EmbedOptionsT) {
           return [];
         }
       })();
-      this.collection.sendNotification(
+      this.collection.send(
         SEND_TO_LOG, `relatedEmbeds.restore ${key} result ${JSON.stringify(res)}`, LEVELS[DEBUG]
       );
       return res;
@@ -300,13 +300,13 @@ export default function relatedEmbeds(opts: EmbedOptionsT) {
 
     opts.replicate = function(): object[] {
       const alRecords = this[key] || [];
-      this.collection.sendNotification(
+      this.collection.send(
         SEND_TO_LOG, `relatedEmbeds.replicate ${key} embeds ${JSON.stringify(alRecords)}`, LEVELS[DEBUG]
       );
       const res = alRecords.map((aoRecord) =>
         aoRecord.constructor.objectize(aoRecord)
       );
-      this.collection.sendNotification(
+      this.collection.send(
         SEND_TO_LOG, `relatedEmbeds.replicate ${key} result ${JSON.stringify(res)}`, LEVELS[DEBUG]
       );
       return res;

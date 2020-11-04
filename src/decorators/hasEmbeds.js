@@ -113,7 +113,7 @@ export default function hasEmbeds(opts: EmbedOptionsT) {
           })).toArray();
         }
       })();
-      this.collection.sendNotification(
+      this.collection.send(
         SEND_TO_LOG, `hasEmbeds.load ${key} result ${JSON.stringify(res)}`, LEVELS[DEBUG]
       );
       return res;
@@ -128,7 +128,7 @@ export default function hasEmbeds(opts: EmbedOptionsT) {
         .retrieveProxy(opts.collectionName.call(this));
       const EmbedRecord = this.findRecordByName(opts.recordName.call(this));
       let alRecords = this[key];
-      this.collection.sendNotification(
+      this.collection.send(
         SEND_TO_LOG, `hasEmbeds.put ${key} embeds ${JSON.stringify(alRecords)}`, LEVELS[DEBUG]
       );
       if (alRecords.length > 0) {
@@ -285,7 +285,7 @@ export default function hasEmbeds(opts: EmbedOptionsT) {
         .facade
         .retrieveProxy(opts.collectionName.call(this));
       let EmbedRecord = this.findRecordByName(opts.recordName.call(this));
-      this.collection.sendNotification(
+      this.collection.send(
         SEND_TO_LOG, `hasEmbeds.restore ${key} replica ${JSON.stringify(replica)}`, LEVELS[DEBUG]
       );
       const res = await (async () => {
@@ -300,7 +300,7 @@ export default function hasEmbeds(opts: EmbedOptionsT) {
           return [];
         }
       })();
-      this.collection.sendNotification(
+      this.collection.send(
         SEND_TO_LOG, `hasEmbeds.restore ${key} result ${JSON.stringify(res)}`, LEVELS[DEBUG]
       );
       return res;
@@ -308,13 +308,13 @@ export default function hasEmbeds(opts: EmbedOptionsT) {
 
     opts.replicate = function(): object[] {
       const alRecords = this[key] || [];
-      this.collection.sendNotification(
+      this.collection.send(
         SEND_TO_LOG, `hasEmbeds.replicate ${key} embeds ${JSON.stringify(alRecords)}`, LEVELS[DEBUG]
       );
       const res = alRecords.map((aoRecord) =>
         aoRecord.constructor.objectize(aoRecord)
       );
-      this.collection.sendNotification(
+      this.collection.send(
         SEND_TO_LOG, `hasEmbeds.replicate ${key} result ${JSON.stringify(res)}`, LEVELS[DEBUG]
       );
       return res;

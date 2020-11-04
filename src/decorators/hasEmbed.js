@@ -118,7 +118,7 @@ export default function hasEmbed(opts: EmbedOptionsT) {
           })).first();
         }
       })();
-      this.collection.sendNotification(
+      this.collection.send(
         SEND_TO_LOG, `hasEmbed.load ${key} result ${JSON.stringify(res)}`, LEVELS[DEBUG]
       );
       return res;
@@ -133,7 +133,7 @@ export default function hasEmbed(opts: EmbedOptionsT) {
         .retrieveProxy(opts.collectionName.call(this));
       const EmbedRecord = this.findRecordByName(opts.recordName.call(this));
       let aoRecord = this[key];
-      this.collection.sendNotification(
+      this.collection.send(
         SEND_TO_LOG, `hasEmbed.put ${key} embed ${JSON.stringify(aoRecord)}`, LEVELS[DEBUG]
       );
       if (aoRecord != null) {
@@ -270,7 +270,7 @@ export default function hasEmbed(opts: EmbedOptionsT) {
         .facade
         .retrieveProxy(opts.collectionName.call(this));
       const EmbedRecord = this.findRecordByName(opts.recordName.call(this));
-      this.collection.sendNotification(
+      this.collection.send(
         SEND_TO_LOG, `hasEmbed.restore ${key} replica ${JSON.stringify(replica)}`, LEVELS[DEBUG]
       );
       const res = await (async () => {
@@ -283,7 +283,7 @@ export default function hasEmbed(opts: EmbedOptionsT) {
           return null;
         }
       })();
-      this.collection.sendNotification(
+      this.collection.send(
         SEND_TO_LOG, `hasEmbed.restore ${key} result ${JSON.stringify(res)}`, LEVELS[DEBUG]
       );
       return res;
@@ -291,11 +291,11 @@ export default function hasEmbed(opts: EmbedOptionsT) {
 
     opts.replicate = function(): object {
       const aoRecord = this[key];
-      this.collection.sendNotification(
+      this.collection.send(
         SEND_TO_LOG, `hasEmbed.replicate ${key} embed ${JSON.stringify(aoRecord)}`, LEVELS[DEBUG]
       );
       const res = aoRecord.constructor.objectize(aoRecord);
-      this.collection.sendNotification(
+      this.collection.send(
         SEND_TO_LOG, `hasEmbed.replicate ${key} result ${JSON.stringify(res)}`, LEVELS[DEBUG]
       );
       return res;

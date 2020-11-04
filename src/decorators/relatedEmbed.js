@@ -119,7 +119,7 @@ export default function relatedEmbed(opts: EmbedOptionsT) {
           })).first();
         }
       })();
-      this.collection.sendNotification(
+      this.collection.send(
         SEND_TO_LOG, `relatedEmbed.load ${key} result ${JSON.stringify(res)}`, LEVELS[DEBUG]
       );
       return res;
@@ -132,7 +132,7 @@ export default function relatedEmbed(opts: EmbedOptionsT) {
       let EmbedsCollection = null;
       let EmbedRecord = null;
       let aoRecord = this[key];
-      this.collection.sendNotification(
+      this.collection.send(
         SEND_TO_LOG, `relatedEmbed.put ${key} embed ${JSON.stringify(aoRecord)}`, LEVELS[DEBUG]
       );
       if (aoRecord != null) {
@@ -228,7 +228,7 @@ export default function relatedEmbed(opts: EmbedOptionsT) {
     opts.restore = async function(replica: ?object): Promise<?RecordInterface> {
       let EmbedsCollection = null;
       let EmbedRecord = null;
-      this.collection.sendNotification(
+      this.collection.send(
         SEND_TO_LOG, `relatedEmbed.restore ${key} replica ${JSON.stringify(replica)}`, LEVELS[DEBUG]
       );
       const res = await (async () => {
@@ -253,7 +253,7 @@ export default function relatedEmbed(opts: EmbedOptionsT) {
           return null;
         }
       })();
-      this.collection.sendNotification(
+      this.collection.send(
         SEND_TO_LOG, `relatedEmbed.restore ${key} result ${JSON.stringify(res)}`, LEVELS[DEBUG]
       );
       return res;
@@ -261,11 +261,11 @@ export default function relatedEmbed(opts: EmbedOptionsT) {
 
     opts.replicate = function(): object {
       const aoRecord = this[key];
-      this.collection.sendNotification(
+      this.collection.send(
         SEND_TO_LOG, `relatedEmbed.replicate ${key} embed ${JSON.stringify(aoRecord)}`, LEVELS[DEBUG]
       );
       const res = aoRecord.constructor.objectize(aoRecord);
-      this.collection.sendNotification(
+      this.collection.send(
         SEND_TO_LOG, `relatedEmbed.replicate ${key} result ${JSON.stringify(res)}`, LEVELS[DEBUG]
       );
       return res;
