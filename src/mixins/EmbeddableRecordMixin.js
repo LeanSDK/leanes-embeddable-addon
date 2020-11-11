@@ -110,19 +110,24 @@ export default (Module) => {
         return this;
       }
 
-      @method static async normalize(ahPayload: ?object, aoCollection: CollectionInterface<RecordInterface>): Promise<RecordInterface> {
-        const voRecord = await super.normalize(... arguments);
+      @method static async normalize(ahPayload: ?object, aoCollection: CollectionInterface<RecordInterface>): Promise<?[Class<*>, object]> {
+        if (ahPayload == null) return null;
+        const [RecordClass, normalized] = await super.normalize(... arguments);
+        const voRecord = RecordClass.new(normalized, aoCollection);
         const voEmbeds = voRecord.constructor.embeddings;
         for (const vsEmbed in voEmbeds) {
           if (!hasProp.call(voEmbeds, vsEmbed)) continue;
           const { load } = voEmbeds[vsEmbed];
-          voRecord[vsEmbed] = await load.call(voRecord);
+          normalized[vsEmbed] = await load.call(voRecord);
+          voRecord[vsEmbed] = normalized[vsEmbed];
         }
-        voRecord._internalRecord = voRecord.constructor.makeSnapshotWithEmbeds(voRecord);
-        return voRecord;
+        // voRecord._internalRecord = voRecord.constructor.makeSnapshotWithEmbeds(voRecord);
+        normalized._internalRecord = voRecord.constructor.makeSnapshotWithEmbeds(voRecord);
+        return [recordClass, normalized];
       }
 
       @method static async serialize(aoRecord: ?RecordInterface): Promise<?object> {
+        if (aoRecord == null) return null;
         const voEmbeds = aoRecord.constructor.embeddings;
         for (const vsEmbed in voEmbeds) {
           if (!hasProp.call(voEmbeds, vsEmbed)) continue;
@@ -132,20 +137,24 @@ export default (Module) => {
         return await super.serialize(aoRecord);
       }
 
-      @method static async recoverize(ahPayload: ?object, aoCollection: CollectionInterface<RecordInterface>): Promise<?RecordInterface> {
-        const voRecord = await super.recoverize(... arguments);
+      @method static async recoverize(ahPayload: ?object, aoCollection: CollectionInterface<RecordInterface>): Promise<?[Class<*>, object]> {
+        if (ahPayload == null) return null;
+        const [RecordClass, recoverized] = await super.recoverize(... arguments);
+        const voRecord = RecordClass.new(recoverized, aoCollection);
         const voEmbeds = voRecord.constructor.embeddings;
         for (const vsEmbed in voEmbeds) {
           if (!hasProp.call(voEmbeds, vsEmbed)) continue;
           const { restore } = voEmbeds[vsEmbed];
           if (vsEmbed in ahPayload) {
-            voRecord[vsEmbed] = await restore.call(voRecord, ahPayload[vsEmbed]);
+            recoverized[vsEmbed] = await restore.call(voRecord, ahPayload[vsEmbed]);
+            voRecord[vsEmbed] = recoverized[vsEmbed]
           }
         }
-        return voRecord;
+        return [recordClass, recoverized];
       }
 
       @method static objectize(aoRecord: ?RecordInterface): ?object {
+        if (aoRecord == null) return null;
         const vhResult = super.objectize(... arguments);
         const voEmbeds = aoRecord.constructor.embeddings;
         for (const vsEmbed in voEmbeds) {
