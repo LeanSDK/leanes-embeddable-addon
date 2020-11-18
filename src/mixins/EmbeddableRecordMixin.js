@@ -13,25 +13,22 @@
 // You should have received a copy of the GNU Lesser General Public License
 // along with leanes-embeddable-addon.  If not, see <https://www.gnu.org/licenses/>.
 
-import type { JoiT } from '@leansdk/leanes/src';
-
-import type {
-  CollectionInterface, RecordInterface, RecordStaticInterface,
-  RelationInverseT,
-} from '@leansdk/leanes-mapper-addon/src';
-
+import type { JoiT } from '../types/JoiT';
+import type { RelationInverseT } from '../types/RelationInverseT';
 import type { EmbedConfigT } from '../types/EmbedConfigT';
+
+import type { CollectionInterface } from '../interfaces/CollectionInterface';
+import type { RecordInterface } from '../interfaces/RecordInterface';
 
 const hasProp = {}.hasOwnProperty;
 
 export default (Module) => {
   const {
-    Record,
     initializeMixin, meta, property, method, chains,
     Utils: { _, joi }
   } = Module.NS;
 
-  Module.defineMixin(__filename, (BaseClass: Class<Record>) => {
+  Module.defineMixin(__filename, (BaseClass) => {
     @initializeMixin
     @chains(['create', 'update'], function () { return; })
     class Mixin extends BaseClass {

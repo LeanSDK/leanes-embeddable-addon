@@ -14,7 +14,7 @@
 // along with leanes-embeddable-addon.  If not, see <https://www.gnu.org/licenses/>.
 
 import assert from 'assert';
-import type { RecordInterface } from '@leansdk/leanes-mapper-addon/src';
+import type { RecordInterface } from '../interfaces/RecordInterface';
 import type { EmbedOptionsT } from '../types/EmbedOptionsT';
 import type { EmbedConfigT } from '../types/EmbedConfigT';
 

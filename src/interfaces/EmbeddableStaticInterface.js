@@ -13,7 +13,8 @@
 // You should have received a copy of the GNU Lesser General Public License
 // along with leanes-embeddable-addon.  If not, see <https://www.gnu.org/licenses/>.
 
-import type { CollectionInterface, RecordInterface } from '@leansdk/leanes-mapper-addon/src';
+import type { CollectionInterface } from './CollectionInterface';
+import type { RecordInterface } from './RecordInterface';
 import type { EmbedConfigT } from '../types/EmbedConfigT';
 
 export interface EmbeddableStaticInterface {

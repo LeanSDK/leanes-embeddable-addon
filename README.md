@@ -11,6 +11,33 @@ LeanES addon for define and use embedded Mapper records.
 
 https://trello.com/b/zUraHz54/leanes
 
+## Known build error
+
+Broccoli-rollup util displays an following error after `./npm run build`
+
+```
+ENOENT: no such file or directory, lstat '/tmp/broccoli-1810tEVgkQcna6/cache-1-broccoli_rollup_lean_es/build/affcbe8c4417cb3549637777f7bc87'
+        at BroccoliRollup (LeanES)
+-~- created here: -~-
+    at new Plugin (/usr/src/leanes/node_modules/broccoli-rollup/node_modules/broccoli-plugin/index.js:31:32)
+    at new BroccoliRollup (/usr/src/leanes/node_modules/broccoli-rollup/dist/index.js:15:9)
+    at Object.<anonymous> (/usr/src/leanes/Brocfile.js:17:10)
+    at Object.<anonymous> (/usr/src/leanes/node_modules/esm/esm.js:1:251206)
+    at /usr/src/leanes/node_modules/esm/esm.js:1:245054
+    at Generator.next (<anonymous>)
+    at bl (/usr/src/leanes/node_modules/esm/esm.js:1:245412)
+    at kl (/usr/src/leanes/node_modules/esm/esm.js:1:247659)
+    at Object.u (/usr/src/leanes/node_modules/esm/esm.js:1:287740)
+    at Object.o (/usr/src/leanes/node_modules/esm/esm.js:1:287137)
+-~- (end) -~-
+
+
+Stack Trace and Error Report: /tmp/error.dump.b981366098a6d223770d1ff78180f99b.log
+```
+
+But it made correct build result in `/lib`
+I couldn't find a solution fo fix it (this error becames from `rollup-plugin-node-globals`)
+
 ## Additional information useful but not for deploy
 
 ### Absent permissions bug

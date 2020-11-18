@@ -13,7 +13,7 @@
 // You should have received a copy of the GNU Lesser General Public License
 // along with leanes-embeddable-addon.  If not, see <https://www.gnu.org/licenses/>.
 
-import type { JoiT } from '@leansdk/leanes/src';
+import type { JoiT } from './JoiT';
 
 export type EmbedConfigT = {|
   refKey: string,

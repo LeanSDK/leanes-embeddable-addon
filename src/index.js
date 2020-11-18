@@ -22,12 +22,15 @@ import hasEmbeds from './decorators/hasEmbeds';
 import relatedEmbed from './decorators/relatedEmbed';
 import relatedEmbeds from './decorators/relatedEmbeds';
 
+import EmbeddableRecordMixin from './mixins/EmbeddableRecordMixin';
+
 export default (Module) => {
   const {
     initializeMixin, meta, decorator,
   } = Module.NS;
 
-  return ['EmbeddableAddon', (BaseClass: Class<Module.NS.Module>) => {
+  return ['EmbeddableAddon', (BaseClass) => {
+    @EmbeddableRecordMixin
     @initializeMixin
     class Mixin extends BaseClass {
       @meta static object = {};
@@ -37,9 +40,6 @@ export default (Module) => {
       @decorator relatedEmbed = relatedEmbed;
       @decorator relatedEmbeds = relatedEmbeds;
     }
-
-    require('./mixins/EmbeddableRecordMixin').default(Mixin);
-
     return Mixin;
   }]
 }
