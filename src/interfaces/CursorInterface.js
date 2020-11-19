@@ -16,7 +16,7 @@
 // import type { CollectionInterface } from './CollectionInterface';
 
 export interface CursorInterface<
-  Collection, Delegate, Iterable = Delegate[]
+  Collection, Delegate, Iterable = Array<?Delegate>
 > {
   isClosed: boolean;
 
@@ -24,7 +24,7 @@ export interface CursorInterface<
 
   setIterable(alArray: Iterable): CursorInterface;
 
-  toArray(): Promise<Delegate[]>;
+  toArray(): Promise<Array<?Delegate>>;
 
   next(): Promise<?Delegate>;
 
@@ -38,11 +38,11 @@ export interface CursorInterface<
 
   map<R>(lambda: (Delegate, number) => R | Promise<R>): Promise<R[]>;
 
-  filter(lambda: (Delegate, number) => boolean | Promise<boolean>): Promise<Delegate[]>;
+  filter(lambda: (Delegate, number) => boolean | Promise<boolean>): Promise<Array<?Delegate>>;
 
   find(lambda: (Delegate, number) => boolean | Promise<boolean>): Promise<?Delegate>;
 
-  compact(): Promise<Delegate[]>;
+  compact(): Promise<Array<?Delegate>>;
 
   reduce<I>(lambda: (I, Delegate, number) => I | Promise<I>, initialValue: I): Promise<I>;
 

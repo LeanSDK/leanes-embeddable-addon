@@ -23,7 +23,7 @@ export interface RecordInterface  {
   save(): Promise<RecordInterface>;
   create(): Promise<RecordInterface>;
   update(): Promise<RecordInterface>;
-  'delete'(): Promise<RecordInterface>;
+  'delete'(): Promise<void | RecordInterface>;
   destroy(): Promise<void>;
   attributes(): object;
   clone(): Promise<RecordInterface>;
