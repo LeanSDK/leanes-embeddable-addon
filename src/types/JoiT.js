@@ -13,7 +13,24 @@
 // You should have received a copy of the GNU Lesser General Public License
 // along with LeanES.  If not, see <https://www.gnu.org/licenses/>.
 
+type Types =
+  | 'any'
+  | 'alternatives'
+  | 'array'
+  | 'boolean'
+  | 'binary'
+  | 'date'
+  | 'function'
+  | 'link'
+  | 'number'
+  | 'object'
+  | 'string'
+  | 'symbol';
+
 export type JoiT = {
-  isJoi: true,
-  _type: any
+  $_super: object,
+  $_terms: object,
+  $_root: object,
+  _flags: object,
+  type: Types | string,
 }
